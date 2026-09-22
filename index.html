@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ApexDrive | Luxury & Sports Car Rental Experience</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       Navigation Bar
+       ======================================================================== -->
+  <header class="user-navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-logo-icon">🚗</div>
+        <span>ApexDrive</span>
+      </a>
+
+      <!-- Instant Search Bar -->
+      <div class="nav-search-bar">
+        <span class="nav-search-icon">🔍</span>
+        <input type="text" id="search-input" class="nav-search-input" placeholder="Search by car name, brand (e.g. Porsche, Tesla, SUV)...">
+      </div>
+
+      <nav class="nav-links">
+        <a href="#fleet-catalog-anchor" class="nav-link active">Explore Fleet</a>
+        <a href="#why-choose-us" class="nav-link">Why Us</a>
+        
+        <!-- Bookings Button with Badge -->
+        <div class="bookings-btn-wrapper">
+          <a href="#" class="nav-link" id="nav-my-bookings-btn">
+            <span>📋 My Bookings</span>
+            <span class="badge-count" id="bookings-badge" style="display: none;">0</span>
+          </a>
+        </div>
+
+        <!-- Dynamic User Auth Section -->
+        <div id="nav-user-section" style="display: flex; align-items: center; gap: 0.75rem;">
+          <!-- Injected dynamically by user.js -->
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       Hero Section & Quick Search Widget
+       ======================================================================== -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div>
+        <span class="hero-tag">🔥 Experience Next-Gen Mobility</span>
+        <h1 class="hero-title">
+          Drive the Car You’ve Always <span>Dreamed Of</span>
+        </h1>
+        <p class="hero-subtitle">
+          From exhilarating German sports coupés to zero-emission electric supercars and 7-seater luxury SUVs. Book online in 60 seconds with transparent pricing and zero hidden fees.
+        </p>
+
+        <div class="hero-stats-row">
+          <div class="stat-item">
+            <h4>50+</h4>
+            <p>Premium Fleet</p>
+          </div>
+          <div class="stat-item">
+            <h4>99.9%</h4>
+            <p>Customer Delight</p>
+          </div>
+          <div class="stat-item">
+            <h4>4.9 ★</h4>
+            <p>Trustpilot Rating</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Finder Card -->
+      <div class="hero-booking-widget">
+        <h3 class="widget-title">Quick Rental Finder</h3>
+        <p class="widget-subtitle">Check availability and best rates instantly</p>
+
+        <form>
+          <div class="widget-form-grid">
+            <div class="widget-field full-col">
+              <label>Search Keyword</label>
+              <input type="text" id="hero-search-input" placeholder="e.g. BMW, Tesla, Mustang...">
+            </div>
+
+            <div class="widget-field">
+              <label>Vehicle Class</label>
+              <select id="hero-car-category">
+                <option value="all">All Categories</option>
+                <option value="Sports">Sports & Performance</option>
+                <option value="Luxury">Executive Luxury</option>
+                <option value="Electric">Electric Vehicles (EV)</option>
+                <option value="SUV">Luxury SUVs</option>
+              </select>
+            </div>
+
+            <div class="widget-field">
+              <label>Transmission</label>
+              <select id="hero-transmission">
+                <option value="all">Any Transmission</option>
+                <option value="Automatic">Automatic</option>
+                <option value="Manual">Manual</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary btn-block btn-lg" id="hero-find-btn">
+            🔍 Search Available Fleet
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Fleet Catalog & Filter Center
+       ======================================================================== -->
+  <main class="catalog-section" id="fleet-catalog-anchor">
+    
+    <!-- Filter Control Card -->
+    <div class="catalog-header-bar">
+      <div class="catalog-controls-top">
+        <div class="catalog-title-group">
+          <h2>Featured Vehicle Fleet</h2>
+          <p>Hand-picked, fully inspected, and sanitized luxury automobiles</p>
+        </div>
+
+        <div class="sort-group">
+          <span class="sort-label">Sort by:</span>
+          <select id="sort-select" class="sort-select">
+            <option value="popular">Recommended</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Top Rated (Stars)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills (Flexbox) -->
+      <div class="category-pills">
+        <div class="category-pill active" data-category="all">
+          <span>✨</span> All Vehicles
+        </div>
+        <div class="category-pill" data-category="Sports">
+          <span>🏎️</span> Sports & Supercars
+        </div>
+        <div class="category-pill" data-category="Luxury">
+          <span>👑</span> Executive Luxury
+        </div>
+        <div class="category-pill" data-category="SUV">
+          <span>🚙</span> Luxury SUVs
+        </div>
+        <div class="category-pill" data-category="Electric">
+          <span>⚡</span> Electric (EV)
+        </div>
+      </div>
+
+      <!-- Secondary Filters -->
+      <div class="filters-row">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-size: 0.85rem; font-weight: 600; color: #475569;">Max Budget:</span>
+          <input type="range" id="price-slider" min="5000" max="20000" step="500" value="20000" style="cursor: pointer;">
+          <span id="price-val" style="font-weight: 700; color: var(--primary); font-size: 0.9rem;">₹20,000</span>
+        </div>
+
+        <div style="font-size: 0.8rem; color: #64748b; margin-left: auto;">
+          💡 Tip: Click <strong>Specs</strong> for comprehensive vehicle stats, or <strong>Book Now</strong> for instant checkout.
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicles CSS Grid -->
+    <div class="car-grid" id="car-grid">
+      <!-- Injected dynamically by user.js -->
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-catalog" id="empty-catalog" style="display: none;">
+      <div class="empty-icon">🚗💨</div>
+      <h3>No vehicles match your criteria</h3>
+      <p style="color: #64748b; margin-top: 0.5rem;">Try adjusting your search query, increasing your budget, or clearing active filters.</p>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       Why Choose Us & Customer Value Propositions
+       ======================================================================== -->
+  <section class="catalog-section" id="why-choose-us" style="margin-top: 2rem;">
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+      <span class="hero-tag" style="background:#e0e7ff; color:#3730a3; border:none;">🌟 The Apex Advantage</span>
+      <h2 style="font-size: 2.2rem; margin-top: 0.5rem;">Why 25,000+ Drivers Trust ApexDrive</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+      <div style="background: white; padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
+        <div style="font-size: 2.2rem; margin-bottom: 1rem;">🛡️</div>
+        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Comprehensive Coverage</h4>
+        <p style="font-size: 0.9rem; color: #64748b;">Every rental includes zero-deductible insurance protection and 24/7 highway breakdown support.</p>
+      </div>
+
+      <div style="background: white; padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
+        <div style="font-size: 2.2rem; margin-bottom: 1rem;">⚡</div>
+        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Instant Digital Handover</h4>
+        <p style="font-size: 0.9rem; color: #64748b;">No tedious paper contracts. Generate your digital invoice voucher and unlock your car with ease.</p>
+      </div>
+
+      <div style="background: white; padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
+        <div style="font-size: 2.2rem; margin-bottom: 1rem;">🧼</div>
+        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Pristine Cleanliness</h4>
+        <p style="font-size: 0.9rem; color: #64748b;">Vehicles are thoroughly detailed, sanitized, and multipoint safety tested before every journey.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       MODAL: Vehicle Specifications Sheet
+       ======================================================================== -->
+  <div class="modal-backdrop" id="car-details-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-car-title">Vehicle Technical Sheet</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="position: relative; height: 260px; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1.5rem; background: #0f172a;">
+          <img id="modal-car-image" src="" alt="Car Preview" style="width: 100%; height: 100%; object-fit: cover;">
+          <div style="position: absolute; bottom: 12px; left: 12px; display: flex; gap: 0.5rem;">
+            <span class="badge badge-luxury" id="modal-car-category">Category</span>
+            <span class="badge badge-available" id="modal-car-status">Available</span>
+          </div>
+        </div>
+
+        <p id="modal-car-desc" style="font-size: 0.95rem; color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Vehicle overview description...
+        </p>
+
+        <h4 style="font-size: 1.05rem; margin-bottom: 0.75rem;">Engine & Transmission Specifications</h4>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1.5rem;">
+          <div style="background: #f8fafc; padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid #f1f5f9;">
+            <span style="font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Transmission</span>
+            <p id="spec-transmission" style="font-weight: 700; color: #0f172a;">Automatic</p>
+          </div>
+          <div style="background: #f8fafc; padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid #f1f5f9;">
+            <span style="font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Seating Capacity</span>
+            <p id="spec-seats" style="font-weight: 700; color: #0f172a;">5 Adults</p>
+          </div>
+          <div style="background: #f8fafc; padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid #f1f5f9;">
+            <span style="font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Fuel / Powertrain</span>
+            <p id="spec-fuel" style="font-weight: 700; color: #0f172a;">Petrol</p>
+          </div>
+          <div style="background: #f8fafc; padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid #f1f5f9;">
+            <span style="font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase;">0-100 km/h (Acceleration)</span>
+            <p id="spec-accel" style="font-weight: 700; color: #0f172a;">3.5s</p>
+          </div>
+          <div style="background: #f8fafc; padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid #f1f5f9; grid-column: span 2;">
+            <span style="font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Maximum Top Speed</span>
+            <p id="spec-speed" style="font-weight: 700; color: #0f172a;">300 km/h</p>
+          </div>
+        </div>
+
+        <h4 style="font-size: 1.05rem; margin-bottom: 0.75rem;">Premium Features & In-Cabin Amenities</h4>
+        <div id="modal-car-features" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+          <!-- Feature badges injected here -->
+        </div>
+
+        <div style="background: #eef2ff; border: 1px solid #c7d2fe; border-radius: var(--radius-md); padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <span style="font-size: 0.8rem; color: #4338ca; font-weight: 700; text-transform: uppercase;">Daily Base Rate</span>
+            <h3 id="modal-car-price" style="color: var(--primary); font-size: 1.6rem;">₹12,500</h3>
+          </div>
+          <button class="btn btn-primary" id="modal-proceed-book-btn">
+            Proceed to Book This Vehicle &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: Multi-Step Interactive Checkout & Card Payment Simulator
+       ======================================================================== -->
+  <div class="modal-backdrop" id="checkout-modal">
+    <div class="modal-card" style="max-width: 720px;">
+      <div class="modal-header">
+        <h3>Reserve Your Vehicle</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Progress Steps -->
+        <div class="checkout-steps-bar">
+          <div class="step-item active" id="step-ind-1">
+            <div class="step-num">1</div>
+            <span>Trip Details</span>
+          </div>
+          <div class="step-item" id="step-ind-2">
+            <div class="step-num">2</div>
+            <span>Payment Simulation</span>
+          </div>
+        </div>
+
+        <!-- Selected Vehicle Banner -->
+        <div style="display: flex; align-items: center; gap: 1rem; background: #f8fafc; padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); margin-bottom: 1.5rem;">
+          <img id="checkout-car-thumb" src="" alt="Car" style="width: 80px; height: 50px; object-fit: cover; border-radius: var(--radius-sm);">
+          <div>
+            <h4 id="checkout-car-name" style="font-size: 1.1rem;">Vehicle Name</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">Daily Rate: <strong id="checkout-daily-rate">₹0</strong> / day</p>
+          </div>
+        </div>
+
+        <!-- STEP 1: Dates & Add-ons -->
+        <div class="checkout-step-content" id="checkout-step-1">
+          <h4 style="font-size: 1.05rem; margin-bottom: 0.75rem;">1. Select Rental Duration</h4>
+          <div class="form-row" style="margin-bottom: 1.5rem;">
+            <div class="form-group">
+              <label class="form-label">Pick-up Date</label>
+              <input type="date" id="checkout-pickup-date" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Return Date</label>
+              <input type="date" id="checkout-return-date" class="form-input" required>
+            </div>
+          </div>
+
+          <h4 style="font-size: 1.05rem; margin-bottom: 0.75rem;">2. Optional Trip Add-ons</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <label style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border: 1px solid var(--border-light); border-radius: var(--radius-md); cursor: pointer;">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <input type="checkbox" id="addon-insurance" checked>
+                <div>
+                  <strong>Zero-Deductible Full Insurance</strong>
+                  <div style="font-size: 0.78rem; color: #64748b;">Complete bumper-to-bumper collision damage waiver</div>
+                </div>
+              </div>
+              <span style="font-weight: 700; color: var(--primary);">+₹500 / day</span>
+            </label>
+
+            <label style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border: 1px solid var(--border-light); border-radius: var(--radius-md); cursor: pointer;">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <input type="checkbox" id="addon-gps">
+                <div>
+                  <strong>Live Satellite GPS & WiFi Hotspot</strong>
+                  <div style="font-size: 0.78rem; color: #64748b;">Real-time traffic avoidance and offline maps</div>
+                </div>
+              </div>
+              <span style="font-weight: 700; color: var(--primary);">+₹200 / day</span>
+            </label>
+
+            <label style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border: 1px solid var(--border-light); border-radius: var(--radius-md); cursor: pointer;">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <input type="checkbox" id="addon-childseat">
+                <div>
+                  <strong>Child Safety ISOFIX Booster Seat</strong>
+                  <div style="font-size: 0.78rem; color: #64748b;">Certified safety harness seat</div>
+                </div>
+              </div>
+              <span style="font-weight: 700; color: var(--primary);">+₹300 / day</span>
+            </label>
+          </div>
+
+          <h4 style="font-size: 1.05rem; margin-bottom: 0.75rem;">3. Driver Contact Details</h4>
+          <div class="form-row" style="margin-bottom: 1.5rem;">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="checkout-driver-name" class="form-input" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" id="checkout-driver-email" class="form-input" readonly>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label class="form-label">Emergency Mobile Number</label>
+            <input type="tel" id="checkout-driver-phone" class="form-input" required>
+          </div>
+
+          <!-- Price Calculation Summary Box -->
+          <div style="background: #f1f5f9; padding: 1.25rem; border-radius: var(--radius-lg); margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+              <span>Duration Calculated:</span>
+              <strong id="checkout-calc-days">2 Days</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+              <span>Base Vehicle Rent:</span>
+              <span id="checkout-base-rent">₹0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+              <span>Add-ons & Protection:</span>
+              <span id="checkout-addons-cost">₹0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 800; color: var(--primary); border-top: 1px solid #cbd5e1; padding-top: 0.5rem; margin-top: 0.5rem;">
+              <span>Grand Total:</span>
+              <span id="checkout-grand-total">₹0</span>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary btn-block btn-lg" id="checkout-step1-next">
+            Proceed to Payment &rarr;
+          </button>
+        </div>
+
+        <!-- STEP 2: Realistic Payment Gateway Simulator -->
+        <div class="checkout-step-content" id="checkout-step-2" style="display: none;">
+          
+          <!-- Payment Mode Selection -->
+          <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+            <label style="flex: 1; border: 1.5px solid var(--primary); background: var(--primary-light); border-radius: var(--radius-md); padding: 0.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              <input type="radio" name="payment-method" value="Credit Card" checked>
+              <strong>💳 Credit / Debit Card</strong>
+            </label>
+            <label style="flex: 1; border: 1.5px solid var(--border-light); border-radius: var(--radius-md); padding: 0.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              <input type="radio" name="payment-method" value="UPI / QR">
+              <strong>📱 Instant UPI / QR</strong>
+            </label>
+          </div>
+
+          <!-- Interactive Simulated Credit Card Preview -->
+          <div class="card-preview-container">
+            <div class="virtual-card">
+              <div class="card-top">
+                <div class="card-chip"></div>
+                <div style="font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; letter-spacing: 1px;">APEX ELITE</div>
+              </div>
+              <div class="card-num-display" id="preview-card-num">•••• •••• •••• ••••</div>
+              <div class="card-bottom">
+                <div>
+                  <div style="font-size: 0.65rem; opacity: 0.8;">CARDHOLDER</div>
+                  <div id="preview-card-holder">YOUR NAME</div>
+                </div>
+                <div>
+                  <div style="font-size: 0.65rem; opacity: 0.8;">EXPIRES</div>
+                  <div id="preview-card-exp">MM/YY</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Form Fields -->
+          <div class="form-group">
+            <label class="form-label">Card Number</label>
+            <input type="text" id="card-number-input" class="form-input" placeholder="4532 8920 1234 5678" maxlength="19" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Cardholder Name</label>
+              <input type="text" id="card-name-input" class="form-input" placeholder="ALEX MORGAN" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Expiry Date</label>
+              <input type="text" id="card-exp-input" class="form-input" placeholder="08/28" maxlength="5" required>
+            </div>
+          </div>
+
+          <div class="form-actions-bar" style="margin-top: 1rem;">
+            <button type="button" class="btn btn-secondary" id="checkout-step2-back">
+              &larr; Back to Dates
+            </button>
+            <button type="button" class="btn btn-primary btn-lg" id="pay-now-amount-btn">
+              Pay & Confirm Reservation
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: Printable Booking Invoice & Official Voucher
+       ======================================================================== -->
+  <div class="modal-backdrop" id="voucher-modal">
+    <div class="modal-card" style="max-width: 650px;">
+      <div class="modal-header">
+        <h3>🎉 Booking Confirmed!</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="invoice-voucher" id="printable-voucher-content">
+          <div class="voucher-header">
+            <div>
+              <h2 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 0.25rem;">ApexDrive Rentals</h2>
+              <p style="font-size: 0.8rem; color: #64748b;">Official Electronic Rental Confirmation & Boarding Voucher</p>
+            </div>
+            <div class="voucher-qr-sim" id="v-qr-code">
+              [QR PASS]
+            </div>
+          </div>
+
+          <div class="voucher-row">
+            <span style="color: #64748b;">Reservation Reference:</span>
+            <strong id="v-booking-id" style="font-family: monospace; font-size: 1.1rem; color: var(--primary);">BK-0000</strong>
+          </div>
+          <div class="voucher-row">
+            <span style="color: #64748b;">Issuance Date:</span>
+            <span id="v-booking-date">24 September 2026</span>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 1rem 0;">
+
+          <div class="voucher-row">
+            <span style="color: #64748b;">Customer / Primary Driver:</span>
+            <strong id="v-customer-name">Customer Name</strong>
+          </div>
+          <div class="voucher-row">
+            <span style="color: #64748b;">Registered Email:</span>
+            <span id="v-customer-email">customer@apex.com</span>
+          </div>
+          <div class="voucher-row">
+            <span style="color: #64748b;">Allocated Vehicle:</span>
+            <strong id="v-car-name" style="color: #0f172a;">Porsche 911</strong>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 1rem 0;">
+
+          <div class="voucher-row">
+            <span style="color: #64748b;">Rental Schedule:</span>
+            <span><strong id="v-pickup-date">Date</strong> &rarr; <strong id="v-return-date">Date</strong></span>
+          </div>
+          <div class="voucher-row">
+            <span style="color: #64748b;">Total Duration:</span>
+            <span id="v-days">3 Days</span>
+          </div>
+          <div class="voucher-row">
+            <span style="color: #64748b;">Daily Rate:</span>
+            <span id="v-daily-rate">₹0</span>
+          </div>
+          <div class="voucher-row">
+            <span style="color: #64748b;">Included Insurance & Addons:</span>
+            <span id="v-addons">₹0</span>
+          </div>
+          <div class="voucher-row">
+            <span style="color: #64748b;">Payment Method:</span>
+            <span id="v-payment-mode">Credit Card</span>
+          </div>
+
+          <div class="voucher-row total">
+            <span>Total Paid (Taxes Included):</span>
+            <span id="v-total">₹0</span>
+          </div>
+
+          <p style="font-size: 0.75rem; color: #94a3b8; text-align: center; margin-top: 1.5rem;">
+            Please present this digital voucher or printed slip along with your Government Photo ID & Driver’s License at vehicle collection.
+          </p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-cancel-btn">Close</button>
+        <button class="btn btn-primary" id="print-voucher-btn">🖨️ Print Voucher</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: "My Bookings" Customer Drawer
+       ======================================================================== -->
+  <div class="modal-backdrop" id="my-bookings-modal">
+    <div class="modal-card" style="max-width: 750px;">
+      <div class="modal-header">
+        <h3>My Vehicle Bookings</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="my-bookings-list-container" class="bookings-list">
+          <!-- Injected dynamically by user.js -->
+        </div>
+        <div id="no-bookings-msg" style="text-align: center; padding: 3rem 1rem; color: #94a3b8; display: none;">
+          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📭</div>
+          <h4>No Bookings Found</h4>
+          <p>You have not reserved any cars yet. Explore our fleet catalog to book your first ride!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       Footer
+       ======================================================================== -->
+  <footer style="background: #0f172a; color: white; padding: 3rem 1.5rem 2rem; margin-top: auto; border-top: 1px solid #1e293b;">
+    <div style="max-width: 1320px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+      <div class="brand-logo" style="color: white;">
+        <div class="brand-logo-icon">🚗</div>
+        <span>ApexDrive</span>
+      </div>
+
+      <div style="font-size: 0.85rem; color: #94a3b8;">
+        SDC Project Review–1 (Topic #11: Car Rental System) • Built strictly with HTML5, CSS3, JavaScript.
+      </div>
+
+      <div style="display: flex; gap: 1rem; font-size: 0.85rem;">
+        <a href="admin-auth.html" style="color: #fbbf24; font-weight: 600;">🛡️ Admin Portal</a>
+        <a href="user-auth.html" style="color: #38bdf8; font-weight: 600;">👤 Customer Portal</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/user.js"></script>
+</body>
+</html>

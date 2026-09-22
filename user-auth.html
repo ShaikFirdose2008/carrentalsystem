@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Access | ApexDrive Luxury Car Rental</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-page auth-page-user">
+
+  <div class="auth-container">
+    <!-- Left Hero Showcase -->
+    <div class="auth-sidebar">
+      <div>
+        <a href="index.html" class="auth-brand">
+          <div class="auth-brand-icon">🚗</div>
+          <span>ApexDrive</span>
+        </a>
+
+        <div class="auth-hero-content">
+          <span class="auth-hero-tag user-tag">Customer Portal</span>
+          <h1 class="auth-hero-title">Experience the Thrill of the Open Road</h1>
+          <p class="auth-hero-desc">
+            Reserve premium luxury sedans, exotic sports cars, and rugged SUVs with instant confirmation and transparent daily rates.
+          </p>
+
+          <div class="auth-features-list">
+            <div class="auth-feature-item">
+              <span class="icon">✨</span>
+              <span>100% Verified Fleet Condition</span>
+            </div>
+            <div class="auth-feature-item">
+              <span class="icon">⚡</span>
+              <span>Zero Waiting - Instant Online Keyless Booking</span>
+            </div>
+            <div class="auth-feature-item">
+              <span class="icon">🛡️</span>
+              <span>Full Insurance & 24/7 Roadside Assistance</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-switch-link">
+        Are you an administrator? <a href="admin-auth.html">Go to Admin Portal &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Right Form Section -->
+    <div class="auth-form-wrapper">
+      <!-- Tabs (Login vs Register) -->
+      <div class="auth-tab-group">
+        <div class="auth-tab active" id="tab-login-btn">Customer Login</div>
+        <div class="auth-tab" id="tab-register-btn">Create Account</div>
+      </div>
+
+      <!-- Login Form View -->
+      <div id="login-view">
+        <div class="auth-form-header">
+          <h2>Welcome Back</h2>
+          <p>Enter your registered customer credentials to access your rentals.</p>
+        </div>
+
+        <form id="user-login-form">
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email Address</label>
+            <div class="input-wrapper">
+              <span class="input-icon">✉️</span>
+              <input type="email" id="login-email" class="form-input" placeholder="e.g. demo@apex.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input type="password" id="login-password" class="form-input" placeholder="Enter your password" required>
+              <button type="button" class="password-toggle" id="toggle-login-pass">👁️</button>
+            </div>
+          </div>
+
+          <div class="form-actions-bar">
+            <label class="checkbox-label">
+              <input type="checkbox" checked> Remember me
+            </label>
+            <a href="#" class="forgot-link" onclick="alert('Demo Mode: Use password user123 or register a new account.'); return false;">Forgot?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="user-login-submit-btn">
+            Sign In to ApexDrive
+          </button>
+        </form>
+
+        <!-- Quick Fill Helper for Viva Review -->
+        <div class="demo-creds-box">
+          <div>
+            <strong>Demo User:</strong> <code>demo@apex.com</code> | <code>user123</code>
+          </div>
+          <button type="button" class="demo-fill-btn" id="fill-user-creds-btn">Auto-Fill</button>
+        </div>
+      </div>
+
+      <!-- Register Form View -->
+      <div id="register-view" style="display: none;">
+        <div class="auth-form-header">
+          <h2>Join ApexDrive</h2>
+          <p>Register in seconds to unlock member perks and instant reservations.</p>
+        </div>
+
+        <form id="user-register-form">
+          <div class="form-group">
+            <label class="form-label" for="reg-name">Full Name</label>
+            <div class="input-wrapper">
+              <span class="input-icon">👤</span>
+              <input type="text" id="reg-name" class="form-input" placeholder="e.g. John Doe" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-email">Email Address</label>
+            <div class="input-wrapper">
+              <span class="input-icon">✉️</span>
+              <input type="email" id="reg-email" class="form-input" placeholder="e.g. john@example.com" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="reg-phone">Phone Number</label>
+              <div class="input-wrapper">
+                <span class="input-icon">📞</span>
+                <input type="tel" id="reg-phone" class="form-input" placeholder="+91 98765 00000" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reg-city">City</label>
+              <div class="input-wrapper">
+                <span class="input-icon">📍</span>
+                <input type="text" id="reg-city" class="form-input" placeholder="e.g. Hyderabad" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-password">Create Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input type="password" id="reg-password" class="form-input" placeholder="Minimum 6 characters" minlength="6" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="user-register-submit-btn">
+            Create Customer Account
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    // Tab Toggling
+    const tabLoginBtn = document.getElementById('tab-login-btn');
+    const tabRegisterBtn = document.getElementById('tab-register-btn');
+    const loginView = document.getElementById('login-view');
+    const registerView = document.getElementById('register-view');
+
+    tabLoginBtn.addEventListener('click', () => {
+      tabLoginBtn.classList.add('active');
+      tabRegisterBtn.classList.remove('active');
+      loginView.style.display = 'block';
+      registerView.style.display = 'none';
+    });
+
+    tabRegisterBtn.addEventListener('click', () => {
+      tabRegisterBtn.classList.add('active');
+      tabLoginBtn.classList.remove('active');
+      loginView.style.display = 'none';
+      registerView.style.display = 'block';
+    });
+
+    // Password Visibility Toggle
+    const togglePassBtn = document.getElementById('toggle-login-pass');
+    const passInput = document.getElementById('login-password');
+    togglePassBtn.addEventListener('click', () => {
+      const type = passInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passInput.setAttribute('type', type);
+      togglePassBtn.textContent = type === 'password' ? '👁️' : '🙈';
+    });
+
+    // Demo Auto-fill Helper
+    document.getElementById('fill-user-creds-btn').addEventListener('click', () => {
+      document.getElementById('login-email').value = 'demo@apex.com';
+      document.getElementById('login-password').value = 'user123';
+      showToast('Sample customer credentials filled!', 'info');
+    });
+
+    // Login Form Submit
+    document.getElementById('user-login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const pass = document.getElementById('login-password').value;
+
+      try {
+        const user = ApexAuth.loginUser(email, pass);
+        showToast(`Welcome back, ${user.name}! Redirecting to fleet catalog...`, 'success');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 800);
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    });
+
+    // Register Form Submit
+    document.getElementById('user-register-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value;
+      const email = document.getElementById('reg-email').value;
+      const phone = document.getElementById('reg-phone').value;
+      const city = document.getElementById('reg-city').value;
+      const pass = document.getElementById('reg-password').value;
+
+      try {
+        const user = ApexAuth.registerUser(name, email, pass, phone, city);
+        showToast(`Account created! Welcome to ApexDrive, ${user.name}.`, 'success');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 800);
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>

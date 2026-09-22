@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Admin Dashboard | ApexDrive Fleet Management</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout">
+    <!-- ====================================================================
+         Sidebar Navigation
+         ==================================================================== -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <div class="auth-brand-icon" style="background: linear-gradient(135deg, #d97706, #f59e0b);">🛡️</div>
+        <div>
+          <div class="sidebar-brand-name">ApexDrive</div>
+          <span class="sidebar-brand-badge">Command Center</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Operations</div>
+        <a href="#" class="sidebar-link active" data-tab="overview">
+          <span class="icon">📊</span>
+          <span>Overview & KPIs</span>
+        </a>
+        <a href="#" class="sidebar-link" data-tab="fleet">
+          <span class="icon">🚘</span>
+          <span>Fleet Inventory (CRUD)</span>
+        </a>
+        <a href="#" class="sidebar-link" data-tab="bookings">
+          <span class="icon">📑</span>
+          <span>Rental Orders</span>
+        </a>
+        <a href="#" class="sidebar-link" data-tab="maintenance">
+          <span class="icon">🔧</span>
+          <span>Maintenance Scheduler</span>
+        </a>
+
+        <div class="nav-section-title" style="margin-top: 1.5rem;">Quick Switch</div>
+        <a href="index.html" class="sidebar-link">
+          <span class="icon">🚗</span>
+          <span>Customer Catalog &rarr;</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Footer / Admin Session Info -->
+      <div class="sidebar-footer">
+        <div class="admin-user-info">
+          <div class="admin-avatar">AD</div>
+          <div class="admin-details">
+            <span class="admin-name" id="admin-display-name">Super Admin</span>
+            <span class="admin-role" id="admin-display-dept">Fleet Operations</span>
+          </div>
+        </div>
+        <button class="admin-logout-btn" id="admin-logout-btn" title="Sign Out of Admin Console">
+          🚪
+        </button>
+      </div>
+    </aside>
+
+    <!-- ====================================================================
+         Main Workspace
+         ==================================================================== -->
+    <main class="admin-main">
+      <!-- Topbar Header -->
+      <header class="admin-topbar">
+        <div class="topbar-title">
+          <h1>Fleet Administration Console</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-primary" id="open-add-car-btn">
+            ➕ Add New Fleet Vehicle
+          </button>
+        </div>
+      </header>
+
+      <div class="admin-content-body">
+        
+        <!-- KPI Metrics Grid (Displayed across tabs) -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-info">
+              <h5>Total Fleet Cars</h5>
+              <h3 id="kpi-total-fleet">8</h3>
+              <div class="metric-trend up"><span>↑</span> In Active Circulation</div>
+            </div>
+            <div class="metric-icon-box icon-box-primary">🚘</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-info">
+              <h5>Active Rentals</h5>
+              <h3 id="kpi-active-rentals">1</h3>
+              <div class="metric-trend up"><span>●</span> Currently on Road</div>
+            </div>
+            <div class="metric-icon-box icon-box-success">🔑</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-info">
+              <h5>Gross Revenue</h5>
+              <h3 id="kpi-total-revenue">₹47,600</h3>
+              <div class="metric-trend up"><span>₹</span> Confirmed Bookings</div>
+            </div>
+            <div class="metric-icon-box icon-box-warning">💰</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-info">
+              <h5>In Maintenance</h5>
+              <h3 id="kpi-maintenance">1</h3>
+              <div class="metric-trend" style="color: var(--danger);"><span>🛠️</span> Scheduled Service</div>
+            </div>
+            <div class="metric-icon-box icon-box-secondary">🔧</div>
+          </div>
+        </div>
+
+        <!-- ================================================================
+             TAB 1: Overview & Analytics
+             ================================================================ -->
+        <section class="admin-tab-content" id="tab-overview">
+          <div class="admin-card-container">
+            <div class="admin-card-header">
+              <h3>System Overview & Operational Health</h3>
+              <span class="badge badge-luxury">Live Telemetry</span>
+            </div>
+            <div style="padding: 1.75rem;">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div style="background: #f8fafc; padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border-light);">
+                  <h4 style="margin-bottom: 0.75rem;">Fleet Availability Ratio</h4>
+                  <div style="height: 12px; background: #e2e8f0; border-radius: var(--radius-full); overflow: hidden; margin-bottom: 0.5rem; display: flex;">
+                    <div style="width: 75%; background: var(--success);" title="Available (75%)"></div>
+                    <div style="width: 12.5%; background: var(--warning);" title="Rented (12.5%)"></div>
+                    <div style="width: 12.5%; background: var(--danger);" title="Maintenance (12.5%)"></div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #64748b;">
+                    <span>🟢 75% Available</span>
+                    <span>🟡 12.5% Rented</span>
+                    <span>🔴 12.5% Maintenance</span>
+                  </div>
+                </div>
+
+                <div style="background: #f8fafc; padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border-light);">
+                  <h4 style="margin-bottom: 0.75rem;">SDC Review-1 Audit Compliance</h4>
+                  <p style="font-size: 0.875rem; color: #64748b; line-height: 1.5;">
+                    ✓ Two distinct role modules (Admin / User)<br>
+                    ✓ Pure HTML5, CSS3, JavaScript architecture<br>
+                    ✓ LocalStorage synchronization for Fleet, Bookings & Auth
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             TAB 2: Fleet Inventory Management (CRUD)
+             ================================================================ -->
+        <section class="admin-tab-content" id="tab-fleet" style="display: none;">
+          <div class="admin-card-container">
+            <div class="admin-card-header">
+              <h3>Fleet Inventory Management</h3>
+              <div class="table-search-bar">
+                <input type="text" id="fleet-search-input" class="table-search-input" placeholder="Search cars in inventory...">
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Car ID</th>
+                    <th>Vehicle Model</th>
+                    <th>Daily Rate</th>
+                    <th>Specs</th>
+                    <th>Capacity</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="fleet-table-body">
+                  <!-- Injected dynamically by admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             TAB 3: Bookings Management
+             ================================================================ -->
+        <section class="admin-tab-content" id="tab-bookings" style="display: none;">
+          <div class="admin-card-container">
+            <div class="admin-card-header">
+              <h3>Customer Rental Orders & Reservations</h3>
+              <span style="font-size: 0.85rem; color: #64748b;">Real-time booking confirmations</span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Booking ID</th>
+                    <th>Customer</th>
+                    <th>Reserved Vehicle</th>
+                    <th>Rental Dates</th>
+                    <th>Total Amount</th>
+                    <th>Order Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="bookings-table-body">
+                  <!-- Injected dynamically by admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             TAB 4: Maintenance Scheduler
+             ================================================================ -->
+        <section class="admin-tab-content" id="tab-maintenance" style="display: none;">
+          <div class="admin-card-container">
+            <div class="admin-card-header">
+              <h3>Fleet Maintenance Logs & Service Tracker</h3>
+              <button class="btn btn-secondary btn-sm" id="open-maint-btn">
+                🛠️ Schedule Vehicle Service
+              </button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Service ID</th>
+                    <th>Vehicle</th>
+                    <th>Service Type</th>
+                    <th>Authorized Center</th>
+                    <th>Schedule Period</th>
+                    <th>Estimated Cost</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="maintenance-table-body">
+                  <!-- Injected dynamically by admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: Add / Edit Fleet Vehicle (CRUD Form)
+       ======================================================================== -->
+  <div class="modal-backdrop" id="admin-car-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="car-modal-title">Add New Fleet Vehicle</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+
+      <form id="admin-car-form">
+        <div class="modal-body">
+          <input type="hidden" id="car-form-id">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Brand</label>
+              <input type="text" id="car-form-brand" class="form-input" placeholder="e.g. BMW, Porsche" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Model Name</label>
+              <input type="text" id="car-form-name" class="form-input" placeholder="e.g. M4 Competition" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <select id="car-form-category" class="form-input">
+                <option value="Sports">Sports</option>
+                <option value="Luxury">Luxury</option>
+                <option value="SUV">SUV</option>
+                <option value="Electric">Electric</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Daily Rental Rate (₹)</label>
+              <input type="number" id="car-form-price" class="form-input" placeholder="e.g. 9500" min="1000" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Transmission</label>
+              <select id="car-form-transmission" class="form-input">
+                <option value="Automatic">Automatic</option>
+                <option value="Manual">Manual</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Fuel Type</label>
+              <select id="car-form-fuel" class="form-input">
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Electric">Electric</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Seating Capacity</label>
+            <input type="number" id="car-form-seats" class="form-input" placeholder="5" min="2" max="9" value="5" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Vehicle Photo URL</label>
+            <input type="url" id="car-form-image" class="form-input" placeholder="https://images.unsplash.com/..." required>
+            <div class="img-preview-box">
+              <img id="car-form-preview-img" src="" alt="Preview">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Vehicle Description</label>
+            <textarea id="car-form-desc" class="form-input" rows="3" placeholder="Brief technical summary..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary modal-cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="save-car-btn">Save Vehicle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: Schedule Vehicle Maintenance
+       ======================================================================== -->
+  <div class="modal-backdrop" id="admin-maint-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Schedule Fleet Maintenance</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+
+      <form id="admin-maint-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Select Vehicle</label>
+            <select id="maint-car-select" class="form-input" required></select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Service Type / Issue Description</label>
+            <input type="text" id="maint-service-type" class="form-input" placeholder="e.g. 30,000 km Major Service & Brake Fluid" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Authorized Service Workshop</label>
+            <input type="text" id="maint-center" class="form-input" placeholder="e.g. Official Dealer Service Hub" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Service Start Date</label>
+              <input type="date" id="maint-start-date" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Estimated Return Date</label>
+              <input type="date" id="maint-end-date" class="form-input" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Estimated Maintenance Cost (₹)</label>
+            <input type="number" id="maint-cost" class="form-input" placeholder="15000" min="0" required>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary modal-cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Schedule Service</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

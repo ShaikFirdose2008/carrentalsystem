@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Security Gateway | ApexDrive Fleet Management</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-page auth-page-admin">
+
+  <div class="auth-container">
+    <!-- Left Hero Showcase (Admin Theme) -->
+    <div class="auth-sidebar">
+      <div>
+        <a href="index.html" class="auth-brand">
+          <div class="auth-brand-icon">🛡️</div>
+          <span>ApexDrive Admin</span>
+        </a>
+
+        <div class="auth-hero-content">
+          <span class="auth-hero-tag admin-tag">Executive Operations</span>
+          <h1 class="auth-hero-title">Fleet Command & Operations Center</h1>
+          <p class="auth-hero-desc">
+            Authorized administrative gateway for fleet inventory supervision, rental approvals, revenue metrics, and maintenance schedules.
+          </p>
+
+          <div class="auth-features-list">
+            <div class="auth-feature-item">
+              <span class="icon">📊</span>
+              <span>Real-Time Fleet KPI Telemetry</span>
+            </div>
+            <div class="auth-feature-item">
+              <span class="icon">🚘</span>
+              <span>Full CRUD Fleet Inventory Management</span>
+            </div>
+            <div class="auth-feature-item">
+              <span class="icon">🔐</span>
+              <span>Master Passcode Protected Admin Provisioning</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-switch-link">
+        Looking for customer rentals? <a href="user-auth.html">&larr; Return to Customer Portal</a>
+      </div>
+    </div>
+
+    <!-- Right Form Section -->
+    <div class="auth-form-wrapper">
+      <!-- Tabs (Admin Login vs Admin Register) -->
+      <div class="auth-tab-group">
+        <div class="auth-tab active" id="tab-admin-login-btn">Admin Sign In</div>
+        <div class="auth-tab" id="tab-admin-reg-btn">Provision Admin</div>
+      </div>
+
+      <!-- Admin Login View -->
+      <div id="admin-login-view">
+        <div class="auth-form-header">
+          <h2>Administrator Access</h2>
+          <p>Provide verified executive credentials to initialize dashboard session.</p>
+        </div>
+
+        <form id="admin-login-form">
+          <div class="form-group">
+            <label class="form-label" for="admin-email">Official Admin Email</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🛡️</span>
+              <input type="email" id="admin-email" class="form-input" placeholder="admin@apex.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="admin-password">Security Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔑</span>
+              <input type="password" id="admin-password" class="form-input" placeholder="Enter administrative password" required>
+              <button type="button" class="password-toggle" id="toggle-admin-pass">👁️</button>
+            </div>
+          </div>
+
+          <div class="form-actions-bar">
+            <label class="checkbox-label">
+              <input type="checkbox" checked> Remember this terminal
+            </label>
+            <span style="font-size: 0.8rem; color: #94a3b8;">Level 4 Security Clearance</span>
+          </div>
+
+          <button type="submit" class="btn btn-block btn-lg" style="background: linear-gradient(135deg, #d97706, #f59e0b); color: #0f172a; font-weight: 800;">
+            Authenticate Admin Session
+          </button>
+        </form>
+
+        <!-- Quick Fill Helper for SDC Review -->
+        <div class="demo-creds-box">
+          <div>
+            <strong>Admin Demo:</strong> <code>admin@apex.com</code> | <code>admin123</code>
+          </div>
+          <button type="button" class="demo-fill-btn" id="fill-admin-creds-btn">Auto-Fill</button>
+        </div>
+      </div>
+
+      <!-- Admin Provision / Signup View -->
+      <div id="admin-register-view" style="display: none;">
+        <div class="auth-form-header">
+          <h2>Provision Administrator</h2>
+          <p>Create an authorized administrator profile using the system Master Security Key.</p>
+        </div>
+
+        <div class="admin-key-notice">
+          <span>⚠️</span>
+          <span>Requires Master Admin Key: <strong>ADMIN2026</strong></span>
+        </div>
+
+        <form id="admin-register-form">
+          <div class="form-group">
+            <label class="form-label" for="admin-reg-name">Officer Full Name</label>
+            <div class="input-wrapper">
+              <span class="input-icon">👤</span>
+              <input type="text" id="admin-reg-name" class="form-input" placeholder="e.g. Commander Shepard" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="admin-reg-email">Administrative Email</label>
+            <div class="input-wrapper">
+              <span class="input-icon">✉️</span>
+              <input type="email" id="admin-reg-email" class="form-input" placeholder="e.g. lead@apex.com" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="admin-reg-dept">Department</label>
+              <div class="input-wrapper">
+                <span class="input-icon">🏢</span>
+                <input type="text" id="admin-reg-dept" class="form-input" placeholder="Fleet Operations" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="admin-reg-key">Master Security Key</label>
+              <div class="input-wrapper">
+                <span class="input-icon">🔐</span>
+                <input type="password" id="admin-reg-key" class="form-input" placeholder="ADMIN2026" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="admin-reg-password">Set Admin Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input type="password" id="admin-reg-password" class="form-input" placeholder="Minimum 6 characters" minlength="6" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-block btn-lg" style="background: linear-gradient(135deg, #d97706, #f59e0b); color: #0f172a; font-weight: 800;">
+            Provision Admin Profile
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    // Tab Toggling
+    const tabLoginBtn = document.getElementById('tab-admin-login-btn');
+    const tabRegisterBtn = document.getElementById('tab-admin-reg-btn');
+    const loginView = document.getElementById('admin-login-view');
+    const registerView = document.getElementById('admin-register-view');
+
+    tabLoginBtn.addEventListener('click', () => {
+      tabLoginBtn.classList.add('active');
+      tabRegisterBtn.classList.remove('active');
+      loginView.style.display = 'block';
+      registerView.style.display = 'none';
+    });
+
+    tabRegisterBtn.addEventListener('click', () => {
+      tabRegisterBtn.classList.add('active');
+      tabLoginBtn.classList.remove('active');
+      loginView.style.display = 'none';
+      registerView.style.display = 'block';
+    });
+
+    // Password Visibility Toggle
+    const togglePassBtn = document.getElementById('toggle-admin-pass');
+    const passInput = document.getElementById('admin-password');
+    togglePassBtn.addEventListener('click', () => {
+      const type = passInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passInput.setAttribute('type', type);
+      togglePassBtn.textContent = type === 'password' ? '👁️' : '🙈';
+    });
+
+    // Demo Auto-fill Helper
+    document.getElementById('fill-admin-creds-btn').addEventListener('click', () => {
+      document.getElementById('admin-email').value = 'admin@apex.com';
+      document.getElementById('admin-password').value = 'admin123';
+      showToast('Master admin credentials filled!', 'info');
+    });
+
+    // Login Form Submit
+    document.getElementById('admin-login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('admin-email').value;
+      const pass = document.getElementById('admin-password').value;
+
+      try {
+        const admin = ApexAuth.loginAdmin(email, pass);
+        showToast(`Administrator credentials verified. Welcome, ${admin.name}!`, 'success');
+        setTimeout(() => {
+          window.location.href = 'admin.html';
+        }, 800);
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    });
+
+    // Register Form Submit
+    document.getElementById('admin-register-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('admin-reg-name').value;
+      const email = document.getElementById('admin-reg-email').value;
+      const dept = document.getElementById('admin-reg-dept').value;
+      const key = document.getElementById('admin-reg-key').value;
+      const pass = document.getElementById('admin-reg-password').value;
+
+      try {
+        const admin = ApexAuth.registerAdmin(name, email, pass, key, dept);
+        showToast(`Administrator profile ${admin.name} provisioned! Redirecting...`, 'success');
+        setTimeout(() => {
+          window.location.href = 'admin.html';
+        }, 800);
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>
