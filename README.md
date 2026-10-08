@@ -157,3 +157,5 @@ git push -u origin main
 
 ### Q4: How does the system handle booking state synchronization?
 > **Answer:** When a user confirms a booking in `user.js`, `ApexDB.createBooking()` creates the reservation and simultaneously updates the car's status to `'Rented'`. The catalog immediately marks the car as "Reserved" with disabled booking triggers. When an admin marks the order as "Completed" or a user cancels their rental, the car's status automatically reverts to `'Available'`.
+#   c a r r e n t a l s y s t e m  
+ 
